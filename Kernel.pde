@@ -1,5 +1,6 @@
 public abstract class KernelProcess extends PCB {
   String code;
+  int sum = 0;
   SOS os;
 
   KernelProcess(SOS os, String n, String c) {
@@ -27,66 +28,94 @@ public abstract class KernelProcess extends PCB {
 
 ////////////////////////////////////////////
 
-//public class MManager extends KernelProcess {
-//  MManager(SOS sos, String n, String c) {
-//    super(sos, n, c);
-//  }
+public class MManager extends KernelProcess {
+  MManager(SOS sos, String n, String c) {
+    super(sos, n, c);
+  }
 
-//  public void call() {
-//    sim.addToLog(" - Calling "+filename+" to find a free partition for the program  "+os.request);
-//    os.disableInterrupts();
-//    programCounter=0;
-//    os.runProcess(this);
-//  }
+  public void call() {
+    sim.addToLog(" - Calling "+filename+" to find a free partition for the program  "+os.request);
+    os.disableInterrupts();
+    programCounter=0;
+    os.runProcess(this);
+  }
 
-//  public void complete() {
-//    os.baseAddressFound = -1;
-//    int processSize = myPC.HDD.get(os.request).length()+os.processTail.length();
-//    for (int i=1; i<os.partitionTable.size(); i++) {
-//      if (os.partitionTable.get(i).isFree && os.partitionTable.get(i).size >= processSize) {
-//        os.baseAddressFound = os.partitionTable.get(i).baseAddress;
-//        os.partitionTable.get(i).isFree = false;
-//        break;
-//      }
-//    }
-//    if (os.baseAddressFound==-1) {
-//      sim.addToLog(" - "+filename+": Did not find a free partition. Request is ignored");
-//      sim.requestFails++;
-//      os.processScheduler.call();
-//    } else {
-//      sim.addToLog(" - "+filename+": Found a free partition with base address "+os.baseAddressFound);
-//      os.processCreator.call();
-//    }
-//  }
-//}
+  public void complete() {
+    os.baseAddressFound = -1;
+    int processSize = myPC.HDD.get(os.request).length()+os.processTail.length();
+    
+    for (int i = 1; i <os.partitionTable.size(); i++) {
+      
+     
+      if (os.partitionTable.get(i).isFree && os.partitionTable.get(i).size >= processSize) {
+        os.baseAddressFound = os.partitionTable.get(i).baseAddress;
+        os.partitionTable.get(i).isFree = false;
+        os.partitionTable.get(i).size = processSize;
+        sum += os.partitionTable.get(i).size;
+        System.out.println(myPC.RAMSize - (os.baseAddressFound+processSize));
+        System.out.println(os.partitionTable.get(i-1).size);
+       
+      if(myPC.RAMSize - (os.baseAddressFound+processSize) > os.partitionTable.get(i-1).size){
+
+        os.partitionTable.add(new Partition(myPC.RAMSize-os.partitionTable.get(i).size, os.baseAddressFound+processSize));
+        }
+        else{ 
+          os.partitionTable.add(new Partition(9, os.baseAddressFound+9 ));
+          
+        }
+        
+        break;
+      }
+    }
+    if (os.baseAddressFound==-1) {
+      sim.addToLog(" - "+filename+": Did not find a free partition. Request is ignored");
+      sim.requestFails++;
+      os.processScheduler.call();
+    } else {
+      sim.addToLog(" - "+filename+": Found a free partition with base address "+os.baseAddressFound);
+      os.processCreator.call();
+    }
+  }
+}
 
 ///////////////////////////////////////////
 
-//public class Scheduler extends KernelProcess {
-//  Scheduler(SOS sos, String n, String c) {
-//    super(sos, n, c);
-//  }
+public class Scheduler extends KernelProcess {
+  Scheduler(SOS sos, String n, String c) {
+    super(sos, n, c);
+  }
 
-//  public void call() {
-//    sim.addToLog(" - Calling "+filename+" to find for a process to run");
-//    os.disableInterrupts();
-//    programCounter=0;
-//    os.runProcess(this);
-//  }
+  public void call() {
+    sim.addToLog(" - Calling "+filename+" to find for a process to run");
+    os.disableInterrupts();
+    programCounter=0;
+    os.runProcess(this);
+  }
 
-//  public void complete() {
-//    os.enableInterrupts();
-//    if (!os.readyQueue.isEmpty()) {
-//      PCB found = os.readyQueue.get(0);
-//      os.readyQueue.remove(found);
-//      sim.addToLog(" - "+filename+": Selected process with PID "+found.pid);
-//      os.runProcess(found);
-//    } else {
-//      sim.addToLog(" - "+filename+": Did not find a user process. Running idle");
-//      os.idle.call();
-//    }
-//  }
-//}
+  public void complete() {
+    os.enableInterrupts();
+    if (!os.readyQueue.isEmpty()) {
+      int temp = 200;
+      int s = 0;
+      for( int i =0; i < os.readyQueue.size(); i++){
+        String file = os.readyQueue.get(i).filename;
+      int processSize = myPC.HDD.get(file).length()+os.processTail.length()-os.readyQueue.get(i).programCounter;
+      
+      if(processSize < temp){
+        temp = processSize;
+        s = i;
+      }
+      }
+      PCB found = os.readyQueue.get(s);
+      os.readyQueue.remove(found);
+      sim.addToLog(" - "+filename+": Selected process with PID "+found.pid);
+      os.runProcess(found);
+    } else {
+      sim.addToLog(" - "+filename+": Did not find a user process. Running idle");
+      os.idle.call();
+    }
+  }
+}
 
 //////////////////////////////////////////////
 public class ProcessDeleter extends KernelProcess{
@@ -107,11 +136,23 @@ public class ProcessDeleter extends KernelProcess{
 
       public void complete() {
         int ba = os.markedForDeletion.baseAddress;
-        for (int i=1; i<os.partitionTable.size(); i++) {
+        for (int i=1; i<os.partitionTable.size()+ 1; i++) {
           if (ba == os.partitionTable.get(i).baseAddress) {
             os.erasePartition(os.partitionTable.get(i));
             os.partitionTable.get(i).isFree = true;
+    
             os.processTable.remove(os.markedForDeletion);
+            
+     
+    for (int j = 1; j < os.partitionTable.size()-1 ; j++) {
+        Partition currentPartition = os.partitionTable.get(j);
+        Partition nextPartition = os.partitionTable.get(j + 1);
+        if (currentPartition.isFree && nextPartition.isFree) {
+            currentPartition.size += nextPartition.size;
+            os.partitionTable.remove(nextPartition);
+            j--;
+        }
+    }
             break;
           }
         }

@@ -51,6 +51,7 @@ public class Hardware {
     HDD.put("program1.exe", "***$ddddd");
     HDD.put("program2.exe", "*****@*****$ddd");
     HDD.put("program3.exe", "*****@***@*****$dddddddd");
+    HDD.put("program4.exe", "*$");
   }
 
   public void fetch() {

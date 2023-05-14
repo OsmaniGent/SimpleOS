@@ -106,8 +106,10 @@ class Simulator {
     userRequests.add(new Request(90, "program3.exe"));
     userRequests.add(new Request(110, "program2.exe"));
     userRequests.add(new Request(131, "program3.exe"));
+    userRequests.add(new Request(137, "program4.exe"));
     userRequests.add(new Request(141, "program2.exe"));
     userRequests.add(new Request(162, "program3.exe"));
+    userRequests.add(new Request(180, "program1.exe"));
   }
 
   private void configureUI() {

@@ -15,8 +15,6 @@ public class PCB {
   int blockTime;
   //time the process run its first instruction
   int startTime;
-  //priority
-  int priority;
 
   PCB(int ba, String fn) {
     pid = pidCounter++;
@@ -27,7 +25,6 @@ public class PCB {
     loadTime = -1;
     blockTime = -1;
     startTime = -1;
-    priority = int(random(6));
   }
 
   String toString() {

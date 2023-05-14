@@ -5,7 +5,6 @@ public class SOS {
   Hardware myPC;
   String processTail = "hhhhssss";
   boolean interruptsEnabled = true;
-  boolean fixedPartitions = true;
 
   ///////// KERNEL /////////////////////
 
@@ -126,14 +125,12 @@ public class SOS {
     KernelPartition.isFree = false;
 
     if (p>0) {
-      fixedPartitions = true;
       //Make the user partitions (fixed size)
       int partitionSize = (myPC.RAMSize-kernelPartitionSize)/p;
       for (int i=0; i<p; i++) {
         partitionTable.add(new Partition(partitionSize, kernelPartitionSize+i*partitionSize));
       }
     } else {
-      fixedPartitions = false;
       //Make one user BIG user partition (variable partitions)
       partitionTable.add(new Partition(myPC.RAMSize - kernelPartitionSize, kernelPartitionSize));
     }

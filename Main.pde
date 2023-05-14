@@ -14,14 +14,13 @@ Simulator sim;
 
 void setup() {
   size(1400, 1024);
-  randomSeed(0);
   frameRate(30);
   sim = new Simulator();
-  myPC = new Hardware(4, 100);
+  myPC = new Hardware(4, 50);
   doorsOS = new SOS(myPC);
-  doorsOS.compileKernel(new MManager(doorsOS, "Kernel-mManager", "$"), //MemManager First
-    new Scheduler(doorsOS, "Kernel-pScheduler", "$"),                  //Then Scheduler
-    new ProcessDeleter(doorsOS, "Kernel-delete", "$"));                //Finally deleter
+  doorsOS.compileKernel(new MManager(doorsOS, "Kernel-mManager", "*$"), //MemManager First
+    new Scheduler(doorsOS, "Kernel-pScheduler", "*$"),                  //Then Scheduler
+    new ProcessDeleter(doorsOS, "Kernel-delete", "*$"));                //Finally deleter
 
   sim.initialise(doorsOS, 0);  // num of fixed Partitions. 0=variable partitions
 }
