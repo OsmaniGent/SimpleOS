@@ -23,7 +23,7 @@ void setup() {
     new Scheduler(doorsOS, "Kernel-pScheduler", "$"),                  //Then Scheduler
     new ProcessDeleter(doorsOS, "Kernel-delete", "$"));                //Finally deleter
 
-  sim.initialise(doorsOS, 10);  // num of fixed Partitions. 0=variable partitions
+  sim.initialise(doorsOS, 0);  // num of fixed Partitions. 0=variable partitions
 }
 
 void draw() {

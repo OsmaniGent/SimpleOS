@@ -27,66 +27,66 @@ public abstract class KernelProcess extends PCB {
 
 ////////////////////////////////////////////
 
-public class MManager extends KernelProcess {
-  MManager(SOS sos, String n, String c) {
-    super(sos, n, c);
-  }
+//public class MManager extends KernelProcess {
+//  MManager(SOS sos, String n, String c) {
+//    super(sos, n, c);
+//  }
 
-  public void call() {
-    sim.addToLog(" - Calling "+filename+" to find a free partition for the program  "+os.request);
-    os.disableInterrupts();
-    programCounter=0;
-    os.runProcess(this);
-  }
+//  public void call() {
+//    sim.addToLog(" - Calling "+filename+" to find a free partition for the program  "+os.request);
+//    os.disableInterrupts();
+//    programCounter=0;
+//    os.runProcess(this);
+//  }
 
-  public void complete() {
-    os.baseAddressFound = -1;
-    int processSize = myPC.HDD.get(os.request).length()+os.processTail.length();
-    for (int i=1; i<os.partitionTable.size(); i++) {
-      if (os.partitionTable.get(i).isFree && os.partitionTable.get(i).size >= processSize) {
-        os.baseAddressFound = os.partitionTable.get(i).baseAddress;
-        os.partitionTable.get(i).isFree = false;
-        break;
-      }
-    }
-    if (os.baseAddressFound==-1) {
-      sim.addToLog(" - "+filename+": Did not find a free partition. Request is ignored");
-      sim.requestFails++;
-      os.processScheduler.call();
-    } else {
-      sim.addToLog(" - "+filename+": Found a free partition with base address "+os.baseAddressFound);
-      os.processCreator.call();
-    }
-  }
-}
+//  public void complete() {
+//    os.baseAddressFound = -1;
+//    int processSize = myPC.HDD.get(os.request).length()+os.processTail.length();
+//    for (int i=1; i<os.partitionTable.size(); i++) {
+//      if (os.partitionTable.get(i).isFree && os.partitionTable.get(i).size >= processSize) {
+//        os.baseAddressFound = os.partitionTable.get(i).baseAddress;
+//        os.partitionTable.get(i).isFree = false;
+//        break;
+//      }
+//    }
+//    if (os.baseAddressFound==-1) {
+//      sim.addToLog(" - "+filename+": Did not find a free partition. Request is ignored");
+//      sim.requestFails++;
+//      os.processScheduler.call();
+//    } else {
+//      sim.addToLog(" - "+filename+": Found a free partition with base address "+os.baseAddressFound);
+//      os.processCreator.call();
+//    }
+//  }
+//}
 
 ///////////////////////////////////////////
 
-public class Scheduler extends KernelProcess {
-  Scheduler(SOS sos, String n, String c) {
-    super(sos, n, c);
-  }
+//public class Scheduler extends KernelProcess {
+//  Scheduler(SOS sos, String n, String c) {
+//    super(sos, n, c);
+//  }
 
-  public void call() {
-    sim.addToLog(" - Calling "+filename+" to find for a process to run");
-    os.disableInterrupts();
-    programCounter=0;
-    os.runProcess(this);
-  }
+//  public void call() {
+//    sim.addToLog(" - Calling "+filename+" to find for a process to run");
+//    os.disableInterrupts();
+//    programCounter=0;
+//    os.runProcess(this);
+//  }
 
-  public void complete() {
-    os.enableInterrupts();
-    if (!os.readyQueue.isEmpty()) {
-      PCB found = os.readyQueue.get(0);
-      os.readyQueue.remove(found);
-      sim.addToLog(" - "+filename+": Selected process with PID "+found.pid);
-      os.runProcess(found);
-    } else {
-      sim.addToLog(" - "+filename+": Did not find a user process. Running idle");
-      os.idle.call();
-    }
-  }
-}
+//  public void complete() {
+//    os.enableInterrupts();
+//    if (!os.readyQueue.isEmpty()) {
+//      PCB found = os.readyQueue.get(0);
+//      os.readyQueue.remove(found);
+//      sim.addToLog(" - "+filename+": Selected process with PID "+found.pid);
+//      os.runProcess(found);
+//    } else {
+//      sim.addToLog(" - "+filename+": Did not find a user process. Running idle");
+//      os.idle.call();
+//    }
+//  }
+//}
 
 //////////////////////////////////////////////
 public class ProcessDeleter extends KernelProcess{
