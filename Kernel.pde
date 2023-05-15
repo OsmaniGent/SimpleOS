@@ -39,23 +39,35 @@ public class MManager extends KernelProcess {
     os.runProcess(this);
   }
 
-  public void complete() {
-    os.baseAddressFound = -1;
-    int processSize = myPC.HDD.get(os.request).length()+os.processTail.length();
-    for (int i=1; i<os.partitionTable.size(); i++) {
-      if (os.partitionTable.get(i).isFree && os.partitionTable.get(i).size >= processSize) {
-        os.baseAddressFound = os.partitionTable.get(i).baseAddress;
+public void complete() {
+  os.baseAddressFound = -1;
+  int processSize = myPC.HDD.get(os.request).length() + os.processTail.length();
+  for (int i = 1; i < os.partitionTable.size(); i++) {
+    if (os.partitionTable.get(i).isFree && os.partitionTable.get(i).size >= processSize) {
+      os.baseAddressFound = os.partitionTable.get(i).baseAddress;
+      
+      if (os.partitionTable.get(i).size > processSize) {
+        // Existing partition is larger than the process size, create a new partition
         os.partitionTable.get(i).isFree = false;
         
         int size = os.partitionTable.get(i).size;
         os.partitionTable.get(i).size = processSize;
         
-        //if(myPC.RAMSize - (os.baseAddressFound + processSize) >0){
-    os.partitionTable.add(new Partition(size-processSize , os.baseAddressFound + processSize));
-   //}
-        break;
+        // Calculate the index where the new partition should be inserted
+        int insertIndex = i + 1;
+        int newPartitionSize = size - processSize;
+        int newPartitionBaseAddress = os.baseAddressFound + processSize;
+        
+        // Insert the new partition at the appropriate index
+        os.partitionTable.add(insertIndex, new Partition(newPartitionSize, newPartitionBaseAddress));
+      } else {
+        // Existing partition is exactly the same size as the process, allocate it
+        os.partitionTable.get(i).isFree = false;
       }
+      
+      break;
     }
+  }
     if (os.baseAddressFound==-1) {
       sim.addToLog(" - "+filename+": Did not find a free partition. Request is ignored");
       sim.requestFails++;
@@ -138,6 +150,12 @@ public class ProcessDeleter extends KernelProcess{
           }
         }
         sim.addToLog(" - "+filename+": Process with pid "+os.markedForDeletion.pid+" ("+os.markedForDeletion.filename+") was deleted");
+        
+        System.out.println("Current partitionTable status:");
+        for (Partition partition : os.partitionTable) {
+          System.out.println("Base Address: " + partition.baseAddress + ", Size: " + partition.size + ", Is Free: " + partition.isFree);
+        }
+        
         os.processScheduler.call();
       }
 }
