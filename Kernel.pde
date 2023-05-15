@@ -46,6 +46,11 @@ public class MManager extends KernelProcess {
       if (os.partitionTable.get(i).isFree && os.partitionTable.get(i).size >= processSize) {
         os.baseAddressFound = os.partitionTable.get(i).baseAddress;
         os.partitionTable.get(i).isFree = false;
+        os.partitionTable.get(i).size = processSize;
+        
+        //if(myPC.RAMSize - (os.baseAddressFound + processSize) >0){
+    os.partitionTable.add(new Partition(myPC.RAMSize - (os.baseAddressFound + processSize) , os.baseAddressFound + processSize));
+   //}
         break;
       }
     }
@@ -112,6 +117,16 @@ public class ProcessDeleter extends KernelProcess{
             os.erasePartition(os.partitionTable.get(i));
             os.partitionTable.get(i).isFree = true;
             os.processTable.remove(os.markedForDeletion);
+            
+            for (int j = 1; j < os.partitionTable.size()-1 ; j++) {
+        Partition currentPartition = os.partitionTable.get(j);
+        Partition nextPartition = os.partitionTable.get(j + 1);
+        if (currentPartition.isFree && nextPartition.isFree) {
+            currentPartition.size += nextPartition.size;
+            os.partitionTable.remove(nextPartition);
+            j--;
+        }
+    }
             break;
           }
         }

@@ -133,7 +133,7 @@ public class SOS {
         partitionTable.add(new Partition(partitionSize, kernelPartitionSize+i*partitionSize));
       }
     } else {
-      fixedPartitions = false;
+      
       //Make one user BIG user partition (variable partitions)
       partitionTable.add(new Partition(myPC.RAMSize - kernelPartitionSize, kernelPartitionSize));
     }
