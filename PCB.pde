@@ -27,7 +27,7 @@ public class PCB {
     loadTime = -1;
     blockTime = -1;
     startTime = -1;
-    priority = 6;
+    priority = int(random(6));
   }
 
   String toString() {
