@@ -19,8 +19,8 @@ void setup() {
   sim = new Simulator();
   myPC = new Hardware(4, 100);
   doorsOS = new SOS(myPC);
-  doorsOS.compileKernel(new MManager(doorsOS, "Kernel-mManager", "$"), //MemManager First
-    new Scheduler(doorsOS, "Kernel-pScheduler", "$"),                  //Then Scheduler
+  doorsOS.compileKernel(new NextFit(doorsOS, "Kernel-mManager", "$"), //MemManager First
+    new RoundRobin(doorsOS, "Kernel-pScheduler", "$"),                  //Then Scheduler
     new ProcessDeleter(doorsOS, "Kernel-delete", "$"));                //Finally deleter
 
   sim.initialise(doorsOS, 0);  // num of fixed Partitions. 0=variable partitions

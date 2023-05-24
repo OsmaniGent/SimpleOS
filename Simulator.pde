@@ -175,6 +175,9 @@ class Simulator {
         loadProgram(userRequests.get(0).filename);
         userRequests.remove(0);
       }
+      if(myOS.interruptsEnabled){
+        myOS.processScheduler.call();
+      }
       myPC.fetch();
       addToLog(" - Fetched instruction "+myPC.counter+" ("+myPC.IR+") from address "+myPC.MAR+" ("+myPC.baseAddress+"+"+myPC.counter+") of "+myOS.active.filename);
       drawUI();
@@ -193,6 +196,10 @@ class Simulator {
       }
       if (instruction == '*' && myOS.active.pid>=myOS.kernelProcesses && myOS.active.startTime ==-1) {
         myOS.active.startTime = myPC.clock;
+      }
+      if(myPC.counter - myOS.initialCounter >= 2 && !(myOS.active instanceof KernelProcess)){
+        myOS.enableInterrupts();
+
       }
       if (instruction == '$') {
         if (!(myOS.active instanceof KernelProcess)) {
@@ -234,7 +241,7 @@ class Simulator {
   private void checkForUnblocking() {
     if (myOS.interruptsEnabled) {
       for (PCB pcb : myOS.processTable) {
-        if (pcb.state == BLOCKED && pcb.blockTime+SLEEPTIME >= myPC.clock) {
+        if (pcb.state == BLOCKED && pcb.blockTime+SLEEPTIME <= myPC.clock) {
           myOS.newProcess = pcb;
           myOS.processAdmiter.call();
           break;

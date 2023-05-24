@@ -26,6 +26,9 @@ public class SOS {
   PCB newProcess;
   PCB markedForDeletion;
   PCB markedForBlocking;
+  boolean roundRobin;
+  int initialCounter = 0;
+ 
 
   /////////////////////////////////////
 
@@ -84,7 +87,7 @@ public class SOS {
       }
 
       public void complete() {
-        os.readyQueue.add(os.newProcess);
+        os.readyQueue.add(0,os.newProcess);
         os.newProcess.state = READY;
         if (os.newProcess.loadTime==-1) os.newProcess.loadTime = myPC.clock;
         sim.addToLog(" - "+filename+": Process with pid "+os.newProcess.pid+" ("+os.newProcess.filename+") was admitted to the READY queue");
@@ -200,6 +203,7 @@ public class SOS {
     myPC.counter = active.programCounter;
     myPC.baseAddress = active.baseAddress;
     active.state = RUNNING;
+    initialCounter = active.programCounter;
     sim.addToLog(" - Set active process "+active.pid+" , counter ="+myPC.counter+", ba = "+myPC.baseAddress);
   }
 
