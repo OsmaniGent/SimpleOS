@@ -32,14 +32,10 @@
 =========== Simulation Intialised =============
 
 ========== TIME      1    : ===========
- - Calling Kernel-pScheduler to find for a process to run
- - Interrupts set to DISABLED
- - Set active process 1 , counter =0, ba = 1
- - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
+ - Fetched instruction 0 ($) from address 3 (3+0) of Kernel-idle
 
 ========== TIME      2    : ===========
- - Executed instruction 0 ($) of Kernel-pScheduler
- - Kernel-pScheduler: Did not find a user process. Running idle
+ - Executed instruction 0 ($) of Kernel-idle
  - Kernel-idle: Waiting for user input
  - Interrupts set to ENABLED
  - Set active process 3 , counter =0, ba = 3
@@ -96,22 +92,11 @@
 
 ========== TIME     14    : ===========
  - Executed instruction 0 ($) of Kernel-pScheduler
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 7with priority0
  - Set active process 7 , counter =0, ba = 18
 
 ========== TIME     15    : ===========
- - Fetched instruction 0 (*) from address 18 (18+0) of program1.exe
-
-========== TIME     16    : ===========
- - Executed instruction 1 (*) of program1.exe
-
-========== TIME     17    : ===========
- - Fetched instruction 1 (*) from address 19 (18+1) of program1.exe
-
-========== TIME     18    : ===========
- - Executed instruction 2 (*) of program1.exe
- - Interrupts set to ENABLED
-
-========== TIME     19    : ===========
  - Simulator: A new request to run program program2.exe was registered
  - Simulator: Interrupts are enabled. Request will be served
  - Calling Kernel-mManager to find a free partition for the program  program2.exe
@@ -119,66 +104,55 @@
  - Set active process 0 , counter =0, ba = 0
  - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
 
-========== TIME     20    : ===========
+========== TIME     16    : ===========
  - Executed instruction 0 ($) of Kernel-mManager
  - Kernel-mManager: Found a free partition with base address 35
  - Calling Kernel-create to create a process for program2.exe
  - Interrupts set to DISABLED
  - Set active process 4 , counter =0, ba = 4
 
-========== TIME     21    : ===========
+========== TIME     17    : ===========
  - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
 
-========== TIME     22    : ===========
+========== TIME     18    : ===========
  - Executed instruction 1 (*) of Kernel-create
 
-========== TIME     23    : ===========
+========== TIME     19    : ===========
  - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
 
-========== TIME     24    : ===========
+========== TIME     20    : ===========
  - Executed instruction 1 ($) of Kernel-create
  - Kernel-create: Created process with pid 8 for program2.exe
  - Calling Kernel-admiter to admit the process 8 (program2.exe) to the ready queue
  - Interrupts set to DISABLED
  - Set active process 5 , counter =0, ba = 6
 
-========== TIME     25    : ===========
+========== TIME     21    : ===========
  - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
 
-========== TIME     26    : ===========
+========== TIME     22    : ===========
  - Executed instruction 1 (*) of Kernel-admiter
 
-========== TIME     27    : ===========
+========== TIME     23    : ===========
  - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
 
-========== TIME     28    : ===========
+========== TIME     24    : ===========
  - Executed instruction 1 ($) of Kernel-admiter
  - Kernel-admiter: Process with pid 8 (program2.exe) was admitted to the READY queue
  - Calling Kernel-pScheduler to find for a process to run
  - Interrupts set to DISABLED
  - Set active process 1 , counter =0, ba = 1
 
-========== TIME     29    : ===========
+========== TIME     25    : ===========
  - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
 
-========== TIME     30    : ===========
+========== TIME     26    : ===========
  - Executed instruction 0 ($) of Kernel-pScheduler
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 8with priority3
  - Set active process 8 , counter =0, ba = 35
 
-========== TIME     31    : ===========
- - Fetched instruction 0 (*) from address 35 (35+0) of program2.exe
-
-========== TIME     32    : ===========
- - Executed instruction 1 (*) of program2.exe
-
-========== TIME     33    : ===========
- - Fetched instruction 1 (*) from address 36 (35+1) of program2.exe
-
-========== TIME     34    : ===========
- - Executed instruction 2 (*) of program2.exe
- - Interrupts set to ENABLED
-
-========== TIME     35    : ===========
+========== TIME     27    : ===========
  - Simulator: A new request to run program program3.exe was registered
  - Simulator: Interrupts are enabled. Request will be served
  - Calling Kernel-mManager to find a free partition for the program  program3.exe
@@ -186,66 +160,55 @@
  - Set active process 0 , counter =0, ba = 0
  - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
 
-========== TIME     36    : ===========
+========== TIME     28    : ===========
  - Executed instruction 0 ($) of Kernel-mManager
  - Kernel-mManager: Found a free partition with base address 58
  - Calling Kernel-create to create a process for program3.exe
  - Interrupts set to DISABLED
  - Set active process 4 , counter =0, ba = 4
 
-========== TIME     37    : ===========
+========== TIME     29    : ===========
  - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
 
-========== TIME     38    : ===========
+========== TIME     30    : ===========
  - Executed instruction 1 (*) of Kernel-create
 
-========== TIME     39    : ===========
+========== TIME     31    : ===========
  - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
 
-========== TIME     40    : ===========
+========== TIME     32    : ===========
  - Executed instruction 1 ($) of Kernel-create
  - Kernel-create: Created process with pid 9 for program3.exe
  - Calling Kernel-admiter to admit the process 9 (program3.exe) to the ready queue
  - Interrupts set to DISABLED
  - Set active process 5 , counter =0, ba = 6
 
-========== TIME     41    : ===========
+========== TIME     33    : ===========
  - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
 
-========== TIME     42    : ===========
+========== TIME     34    : ===========
  - Executed instruction 1 (*) of Kernel-admiter
 
-========== TIME     43    : ===========
+========== TIME     35    : ===========
  - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
 
-========== TIME     44    : ===========
+========== TIME     36    : ===========
  - Executed instruction 1 ($) of Kernel-admiter
  - Kernel-admiter: Process with pid 9 (program3.exe) was admitted to the READY queue
  - Calling Kernel-pScheduler to find for a process to run
  - Interrupts set to DISABLED
  - Set active process 1 , counter =0, ba = 1
 
-========== TIME     45    : ===========
+========== TIME     37    : ===========
  - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
 
-========== TIME     46    : ===========
+========== TIME     38    : ===========
  - Executed instruction 0 ($) of Kernel-pScheduler
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 9with priority4
  - Set active process 9 , counter =0, ba = 58
 
-========== TIME     47    : ===========
- - Fetched instruction 0 (*) from address 58 (58+0) of program3.exe
-
-========== TIME     48    : ===========
- - Executed instruction 1 (*) of program3.exe
-
-========== TIME     49    : ===========
- - Fetched instruction 1 (*) from address 59 (58+1) of program3.exe
-
-========== TIME     50    : ===========
- - Executed instruction 2 (*) of program3.exe
- - Interrupts set to ENABLED
-
-========== TIME     51    : ===========
+========== TIME     39    : ===========
  - Simulator: A new request to run program program1.exe was registered
  - Simulator: Interrupts are enabled. Request will be served
  - Calling Kernel-mManager to find a free partition for the program  program1.exe
@@ -253,10 +216,66 @@
  - Set active process 0 , counter =0, ba = 0
  - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
 
-========== TIME     52    : ===========
+========== TIME     40    : ===========
  - Executed instruction 0 ($) of Kernel-mManager
  - Kernel-mManager: Found a free partition with base address 90
  - Calling Kernel-create to create a process for program1.exe
+ - Interrupts set to DISABLED
+ - Set active process 4 , counter =0, ba = 4
+
+========== TIME     41    : ===========
+ - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
+
+========== TIME     42    : ===========
+ - Executed instruction 1 (*) of Kernel-create
+
+========== TIME     43    : ===========
+ - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
+
+========== TIME     44    : ===========
+ - Executed instruction 1 ($) of Kernel-create
+ - Kernel-create: Created process with pid 10 for program1.exe
+ - Calling Kernel-admiter to admit the process 10 (program1.exe) to the ready queue
+ - Interrupts set to DISABLED
+ - Set active process 5 , counter =0, ba = 6
+
+========== TIME     45    : ===========
+ - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
+
+========== TIME     46    : ===========
+ - Executed instruction 1 (*) of Kernel-admiter
+
+========== TIME     47    : ===========
+ - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
+
+========== TIME     48    : ===========
+ - Executed instruction 1 ($) of Kernel-admiter
+ - Kernel-admiter: Process with pid 10 (program1.exe) was admitted to the READY queue
+ - Calling Kernel-pScheduler to find for a process to run
+ - Interrupts set to DISABLED
+ - Set active process 1 , counter =0, ba = 1
+
+========== TIME     49    : ===========
+ - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
+
+========== TIME     50    : ===========
+ - Executed instruction 0 ($) of Kernel-pScheduler
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 9with priority4
+ - Set active process 9 , counter =0, ba = 58
+
+========== TIME     51    : ===========
+ - Simulator: A new request to run program program3.exe was registered
+ - Simulator: Interrupts are enabled. Request will be served
+ - Calling Kernel-mManager to find a free partition for the program  program3.exe
+ - Interrupts set to DISABLED
+ - Set active process 0 , counter =0, ba = 0
+ - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
+
+========== TIME     52    : ===========
+ - Executed instruction 0 ($) of Kernel-mManager
+ - Kernel-mManager: Found a free partition with base address 107
+ - Calling Kernel-create to create a process for program3.exe
  - Interrupts set to DISABLED
  - Set active process 4 , counter =0, ba = 4
 
@@ -271,8 +290,8 @@
 
 ========== TIME     56    : ===========
  - Executed instruction 1 ($) of Kernel-create
- - Kernel-create: Created process with pid 10 for program1.exe
- - Calling Kernel-admiter to admit the process 10 (program1.exe) to the ready queue
+ - Kernel-create: Created process with pid 11 for program3.exe
+ - Calling Kernel-admiter to admit the process 11 (program3.exe) to the ready queue
  - Interrupts set to DISABLED
  - Set active process 5 , counter =0, ba = 6
 
@@ -287,7 +306,7 @@
 
 ========== TIME     60    : ===========
  - Executed instruction 1 ($) of Kernel-admiter
- - Kernel-admiter: Process with pid 10 (program1.exe) was admitted to the READY queue
+ - Kernel-admiter: Process with pid 11 (program3.exe) was admitted to the READY queue
  - Calling Kernel-pScheduler to find for a process to run
  - Interrupts set to DISABLED
  - Set active process 1 , counter =0, ba = 1
@@ -297,156 +316,67 @@
 
 ========== TIME     62    : ===========
  - Executed instruction 0 ($) of Kernel-pScheduler
- - Set active process 10 , counter =0, ba = 90
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 9with priority4
+ - Set active process 9 , counter =0, ba = 58
 
 ========== TIME     63    : ===========
- - Fetched instruction 0 (*) from address 90 (90+0) of program1.exe
+ - Simulator: A new request to run program program3.exe was registered
+ - Simulator: Interrupts are enabled. Request will be served
+ - Calling Kernel-mManager to find a free partition for the program  program3.exe
+ - Interrupts set to DISABLED
+ - Set active process 0 , counter =0, ba = 0
+ - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
 
 ========== TIME     64    : ===========
- - Executed instruction 1 (*) of program1.exe
-
-========== TIME     65    : ===========
- - Fetched instruction 1 (*) from address 91 (90+1) of program1.exe
-
-========== TIME     66    : ===========
- - Executed instruction 2 (*) of program1.exe
- - Interrupts set to ENABLED
-
-========== TIME     67    : ===========
- - Simulator: A new request to run program program3.exe was registered
- - Simulator: Interrupts are enabled. Request will be served
- - Calling Kernel-mManager to find a free partition for the program  program3.exe
- - Interrupts set to DISABLED
- - Set active process 0 , counter =0, ba = 0
- - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
-
-========== TIME     68    : ===========
- - Executed instruction 0 ($) of Kernel-mManager
- - Kernel-mManager: Found a free partition with base address 107
- - Calling Kernel-create to create a process for program3.exe
- - Interrupts set to DISABLED
- - Set active process 4 , counter =0, ba = 4
-
-========== TIME     69    : ===========
- - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
-
-========== TIME     70    : ===========
- - Executed instruction 1 (*) of Kernel-create
-
-========== TIME     71    : ===========
- - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
-
-========== TIME     72    : ===========
- - Executed instruction 1 ($) of Kernel-create
- - Kernel-create: Created process with pid 11 for program3.exe
- - Calling Kernel-admiter to admit the process 11 (program3.exe) to the ready queue
- - Interrupts set to DISABLED
- - Set active process 5 , counter =0, ba = 6
-
-========== TIME     73    : ===========
- - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
-
-========== TIME     74    : ===========
- - Executed instruction 1 (*) of Kernel-admiter
-
-========== TIME     75    : ===========
- - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
-
-========== TIME     76    : ===========
- - Executed instruction 1 ($) of Kernel-admiter
- - Kernel-admiter: Process with pid 11 (program3.exe) was admitted to the READY queue
- - Calling Kernel-pScheduler to find for a process to run
- - Interrupts set to DISABLED
- - Set active process 1 , counter =0, ba = 1
-
-========== TIME     77    : ===========
- - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
-
-========== TIME     78    : ===========
- - Executed instruction 0 ($) of Kernel-pScheduler
- - Set active process 11 , counter =0, ba = 107
-
-========== TIME     79    : ===========
- - Fetched instruction 0 (*) from address 107 (107+0) of program3.exe
-
-========== TIME     80    : ===========
- - Executed instruction 1 (*) of program3.exe
-
-========== TIME     81    : ===========
- - Fetched instruction 1 (*) from address 108 (107+1) of program3.exe
-
-========== TIME     82    : ===========
- - Executed instruction 2 (*) of program3.exe
- - Interrupts set to ENABLED
-
-========== TIME     83    : ===========
- - Simulator: A new request to run program program3.exe was registered
- - Simulator: Interrupts are enabled. Request will be served
- - Calling Kernel-mManager to find a free partition for the program  program3.exe
- - Interrupts set to DISABLED
- - Set active process 0 , counter =0, ba = 0
- - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
-
-========== TIME     84    : ===========
  - Executed instruction 0 ($) of Kernel-mManager
  - Kernel-mManager: Found a free partition with base address 139
  - Calling Kernel-create to create a process for program3.exe
  - Interrupts set to DISABLED
  - Set active process 4 , counter =0, ba = 4
 
-========== TIME     85    : ===========
+========== TIME     65    : ===========
  - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
 
-========== TIME     86    : ===========
+========== TIME     66    : ===========
  - Executed instruction 1 (*) of Kernel-create
 
-========== TIME     87    : ===========
+========== TIME     67    : ===========
  - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
 
-========== TIME     88    : ===========
+========== TIME     68    : ===========
  - Executed instruction 1 ($) of Kernel-create
  - Kernel-create: Created process with pid 12 for program3.exe
  - Calling Kernel-admiter to admit the process 12 (program3.exe) to the ready queue
  - Interrupts set to DISABLED
  - Set active process 5 , counter =0, ba = 6
 
-========== TIME     89    : ===========
+========== TIME     69    : ===========
  - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
 
-========== TIME     90    : ===========
+========== TIME     70    : ===========
  - Executed instruction 1 (*) of Kernel-admiter
 
-========== TIME     91    : ===========
+========== TIME     71    : ===========
  - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
 
-========== TIME     92    : ===========
+========== TIME     72    : ===========
  - Executed instruction 1 ($) of Kernel-admiter
  - Kernel-admiter: Process with pid 12 (program3.exe) was admitted to the READY queue
  - Calling Kernel-pScheduler to find for a process to run
  - Interrupts set to DISABLED
  - Set active process 1 , counter =0, ba = 1
 
-========== TIME     93    : ===========
+========== TIME     73    : ===========
  - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
 
-========== TIME     94    : ===========
+========== TIME     74    : ===========
  - Executed instruction 0 ($) of Kernel-pScheduler
- - Set active process 12 , counter =0, ba = 139
-
-========== TIME     95    : ===========
- - Fetched instruction 0 (*) from address 139 (139+0) of program3.exe
-
-========== TIME     96    : ===========
- - Executed instruction 1 (*) of program3.exe
-
-========== TIME     97    : ===========
- - Fetched instruction 1 (*) from address 140 (139+1) of program3.exe
-
-========== TIME     98    : ===========
- - Executed instruction 2 (*) of program3.exe
  - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 9with priority4
+ - Set active process 9 , counter =0, ba = 58
 
-========== TIME     99    : ===========
+========== TIME     75    : ===========
  - Simulator: A new request to run program program1.exe was registered
  - Simulator: Interrupts are enabled. Request will be served
  - Calling Kernel-mManager to find a free partition for the program  program1.exe
@@ -454,10 +384,122 @@
  - Set active process 0 , counter =0, ba = 0
  - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
 
-========== TIME    100    : ===========
+========== TIME     76    : ===========
  - Executed instruction 0 ($) of Kernel-mManager
  - Kernel-mManager: Found a free partition with base address 171
  - Calling Kernel-create to create a process for program1.exe
+ - Interrupts set to DISABLED
+ - Set active process 4 , counter =0, ba = 4
+
+========== TIME     77    : ===========
+ - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
+
+========== TIME     78    : ===========
+ - Executed instruction 1 (*) of Kernel-create
+
+========== TIME     79    : ===========
+ - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
+
+========== TIME     80    : ===========
+ - Executed instruction 1 ($) of Kernel-create
+ - Kernel-create: Created process with pid 13 for program1.exe
+ - Calling Kernel-admiter to admit the process 13 (program1.exe) to the ready queue
+ - Interrupts set to DISABLED
+ - Set active process 5 , counter =0, ba = 6
+
+========== TIME     81    : ===========
+ - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
+
+========== TIME     82    : ===========
+ - Executed instruction 1 (*) of Kernel-admiter
+
+========== TIME     83    : ===========
+ - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
+
+========== TIME     84    : ===========
+ - Executed instruction 1 ($) of Kernel-admiter
+ - Kernel-admiter: Process with pid 13 (program1.exe) was admitted to the READY queue
+ - Calling Kernel-pScheduler to find for a process to run
+ - Interrupts set to DISABLED
+ - Set active process 1 , counter =0, ba = 1
+
+========== TIME     85    : ===========
+ - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
+
+========== TIME     86    : ===========
+ - Executed instruction 0 ($) of Kernel-pScheduler
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 9with priority4
+ - Set active process 9 , counter =0, ba = 58
+
+========== TIME     87    : ===========
+ - Simulator: A new request to run program program1.exe was registered
+ - Simulator: Interrupts are enabled. Request will be served
+ - Calling Kernel-mManager to find a free partition for the program  program1.exe
+ - Interrupts set to DISABLED
+ - Set active process 0 , counter =0, ba = 0
+ - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
+
+========== TIME     88    : ===========
+ - Executed instruction 0 ($) of Kernel-mManager
+ - Kernel-mManager: Found a free partition with base address 188
+ - Calling Kernel-create to create a process for program1.exe
+ - Interrupts set to DISABLED
+ - Set active process 4 , counter =0, ba = 4
+
+========== TIME     89    : ===========
+ - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
+
+========== TIME     90    : ===========
+ - Executed instruction 1 (*) of Kernel-create
+
+========== TIME     91    : ===========
+ - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
+
+========== TIME     92    : ===========
+ - Executed instruction 1 ($) of Kernel-create
+ - Kernel-create: Created process with pid 14 for program1.exe
+ - Calling Kernel-admiter to admit the process 14 (program1.exe) to the ready queue
+ - Interrupts set to DISABLED
+ - Set active process 5 , counter =0, ba = 6
+
+========== TIME     93    : ===========
+ - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
+
+========== TIME     94    : ===========
+ - Executed instruction 1 (*) of Kernel-admiter
+
+========== TIME     95    : ===========
+ - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
+
+========== TIME     96    : ===========
+ - Executed instruction 1 ($) of Kernel-admiter
+ - Kernel-admiter: Process with pid 14 (program1.exe) was admitted to the READY queue
+ - Calling Kernel-pScheduler to find for a process to run
+ - Interrupts set to DISABLED
+ - Set active process 1 , counter =0, ba = 1
+
+========== TIME     97    : ===========
+ - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
+
+========== TIME     98    : ===========
+ - Executed instruction 0 ($) of Kernel-pScheduler
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 14with priority5
+ - Set active process 14 , counter =0, ba = 188
+
+========== TIME     99    : ===========
+ - Simulator: A new request to run program program3.exe was registered
+ - Simulator: Interrupts are enabled. Request will be served
+ - Calling Kernel-mManager to find a free partition for the program  program3.exe
+ - Interrupts set to DISABLED
+ - Set active process 0 , counter =0, ba = 0
+ - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
+
+========== TIME    100    : ===========
+ - Executed instruction 0 ($) of Kernel-mManager
+ - Kernel-mManager: Found a free partition with base address 205
+ - Calling Kernel-create to create a process for program3.exe
  - Interrupts set to DISABLED
  - Set active process 4 , counter =0, ba = 4
 
@@ -472,8 +514,8 @@
 
 ========== TIME    104    : ===========
  - Executed instruction 1 ($) of Kernel-create
- - Kernel-create: Created process with pid 13 for program1.exe
- - Calling Kernel-admiter to admit the process 13 (program1.exe) to the ready queue
+ - Kernel-create: Created process with pid 15 for program3.exe
+ - Calling Kernel-admiter to admit the process 15 (program3.exe) to the ready queue
  - Interrupts set to DISABLED
  - Set active process 5 , counter =0, ba = 6
 
@@ -488,7 +530,7 @@
 
 ========== TIME    108    : ===========
  - Executed instruction 1 ($) of Kernel-admiter
- - Kernel-admiter: Process with pid 13 (program1.exe) was admitted to the READY queue
+ - Kernel-admiter: Process with pid 15 (program3.exe) was admitted to the READY queue
  - Calling Kernel-pScheduler to find for a process to run
  - Interrupts set to DISABLED
  - Set active process 1 , counter =0, ba = 1
@@ -498,87 +540,89 @@
 
 ========== TIME    110    : ===========
  - Executed instruction 0 ($) of Kernel-pScheduler
- - Set active process 13 , counter =0, ba = 171
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 15with priority5
+ - Set active process 15 , counter =0, ba = 205
 
 ========== TIME    111    : ===========
- - Fetched instruction 0 (*) from address 171 (171+0) of program1.exe
-
-========== TIME    112    : ===========
- - Executed instruction 1 (*) of program1.exe
-
-========== TIME    113    : ===========
- - Fetched instruction 1 (*) from address 172 (171+1) of program1.exe
-
-========== TIME    114    : ===========
- - Executed instruction 2 (*) of program1.exe
- - Interrupts set to ENABLED
-
-========== TIME    115    : ===========
- - Simulator: A new request to run program program1.exe was registered
+ - Simulator: A new request to run program program2.exe was registered
  - Simulator: Interrupts are enabled. Request will be served
- - Calling Kernel-mManager to find a free partition for the program  program1.exe
+ - Calling Kernel-mManager to find a free partition for the program  program2.exe
  - Interrupts set to DISABLED
  - Set active process 0 , counter =0, ba = 0
  - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
 
-========== TIME    116    : ===========
+========== TIME    112    : ===========
  - Executed instruction 0 ($) of Kernel-mManager
- - Kernel-mManager: Found a free partition with base address 188
- - Calling Kernel-create to create a process for program1.exe
+ - Kernel-mManager: Found a free partition with base address 237
+ - Calling Kernel-create to create a process for program2.exe
  - Interrupts set to DISABLED
  - Set active process 4 , counter =0, ba = 4
 
-========== TIME    117    : ===========
+========== TIME    113    : ===========
  - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
 
-========== TIME    118    : ===========
+========== TIME    114    : ===========
  - Executed instruction 1 (*) of Kernel-create
 
-========== TIME    119    : ===========
+========== TIME    115    : ===========
  - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
 
-========== TIME    120    : ===========
+========== TIME    116    : ===========
  - Executed instruction 1 ($) of Kernel-create
- - Kernel-create: Created process with pid 14 for program1.exe
- - Calling Kernel-admiter to admit the process 14 (program1.exe) to the ready queue
+ - Kernel-create: Created process with pid 16 for program2.exe
+ - Calling Kernel-admiter to admit the process 16 (program2.exe) to the ready queue
  - Interrupts set to DISABLED
  - Set active process 5 , counter =0, ba = 6
 
-========== TIME    121    : ===========
+========== TIME    117    : ===========
  - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
 
-========== TIME    122    : ===========
+========== TIME    118    : ===========
  - Executed instruction 1 (*) of Kernel-admiter
 
-========== TIME    123    : ===========
+========== TIME    119    : ===========
  - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
 
-========== TIME    124    : ===========
+========== TIME    120    : ===========
  - Executed instruction 1 ($) of Kernel-admiter
- - Kernel-admiter: Process with pid 14 (program1.exe) was admitted to the READY queue
+ - Kernel-admiter: Process with pid 16 (program2.exe) was admitted to the READY queue
  - Calling Kernel-pScheduler to find for a process to run
  - Interrupts set to DISABLED
  - Set active process 1 , counter =0, ba = 1
 
-========== TIME    125    : ===========
+========== TIME    121    : ===========
  - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
 
-========== TIME    126    : ===========
+========== TIME    122    : ===========
  - Executed instruction 0 ($) of Kernel-pScheduler
- - Set active process 14 , counter =0, ba = 188
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 16with priority5
+ - Set active process 16 , counter =0, ba = 237
+
+========== TIME    123    : ===========
+ - Fetched instruction 0 (*) from address 237 (237+0) of program2.exe
+
+========== TIME    124    : ===========
+ - Executed instruction 1 (*) of program2.exe
+
+========== TIME    125    : ===========
+ - Fetched instruction 1 (*) from address 238 (237+1) of program2.exe
+
+========== TIME    126    : ===========
+ - Executed instruction 2 (*) of program2.exe
 
 ========== TIME    127    : ===========
- - Fetched instruction 0 (*) from address 188 (188+0) of program1.exe
+ - Fetched instruction 2 (*) from address 239 (237+2) of program2.exe
 
 ========== TIME    128    : ===========
- - Executed instruction 1 (*) of program1.exe
+ - Executed instruction 3 (*) of program2.exe
 
 ========== TIME    129    : ===========
- - Fetched instruction 1 (*) from address 189 (188+1) of program1.exe
+ - Fetched instruction 3 (*) from address 240 (237+3) of program2.exe
 
 ========== TIME    130    : ===========
- - Executed instruction 2 (*) of program1.exe
- - Interrupts set to ENABLED
+ - Executed instruction 4 (*) of program2.exe
 
 ========== TIME    131    : ===========
  - Simulator: A new request to run program program3.exe was registered
@@ -590,7 +634,7 @@
 
 ========== TIME    132    : ===========
  - Executed instruction 0 ($) of Kernel-mManager
- - Kernel-mManager: Found a free partition with base address 205
+ - Kernel-mManager: Found a free partition with base address 260
  - Calling Kernel-create to create a process for program3.exe
  - Interrupts set to DISABLED
  - Set active process 4 , counter =0, ba = 4
@@ -606,8 +650,8 @@
 
 ========== TIME    136    : ===========
  - Executed instruction 1 ($) of Kernel-create
- - Kernel-create: Created process with pid 15 for program3.exe
- - Calling Kernel-admiter to admit the process 15 (program3.exe) to the ready queue
+ - Kernel-create: Created process with pid 17 for program3.exe
+ - Calling Kernel-admiter to admit the process 17 (program3.exe) to the ready queue
  - Interrupts set to DISABLED
  - Set active process 5 , counter =0, ba = 6
 
@@ -622,4 +666,146 @@
 
 ========== TIME    140    : ===========
  - Executed instruction 1 ($) of Kernel-admiter
- - Kernel-admiter: Process with pid 15 (program3.exe) was admitted to the REA
+ - Kernel-admiter: Process with pid 17 (program3.exe) was admitted to the READY queue
+ - Calling Kernel-pScheduler to find for a process to run
+ - Interrupts set to DISABLED
+ - Set active process 1 , counter =0, ba = 1
+
+========== TIME    141    : ===========
+ - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
+
+========== TIME    142    : ===========
+ - Executed instruction 0 ($) of Kernel-pScheduler
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 14with priority5
+ - Set active process 14 , counter =0, ba = 188
+
+========== TIME    143    : ===========
+ - Simulator: A new request to run program program2.exe was registered
+ - Simulator: Interrupts are enabled. Request will be served
+ - Calling Kernel-mManager to find a free partition for the program  program2.exe
+ - Interrupts set to DISABLED
+ - Set active process 0 , counter =0, ba = 0
+ - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
+
+========== TIME    144    : ===========
+ - Executed instruction 0 ($) of Kernel-mManager
+ - Kernel-mManager: Found a free partition with base address 292
+ - Calling Kernel-create to create a process for program2.exe
+ - Interrupts set to DISABLED
+ - Set active process 4 , counter =0, ba = 4
+
+========== TIME    145    : ===========
+ - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
+
+========== TIME    146    : ===========
+ - Executed instruction 1 (*) of Kernel-create
+
+========== TIME    147    : ===========
+ - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
+
+========== TIME    148    : ===========
+ - Executed instruction 1 ($) of Kernel-create
+ - Kernel-create: Created process with pid 18 for program2.exe
+ - Calling Kernel-admiter to admit the process 18 (program2.exe) to the ready queue
+ - Interrupts set to DISABLED
+ - Set active process 5 , counter =0, ba = 6
+
+========== TIME    149    : ===========
+ - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
+
+========== TIME    150    : ===========
+ - Executed instruction 1 (*) of Kernel-admiter
+
+========== TIME    151    : ===========
+ - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
+
+========== TIME    152    : ===========
+ - Executed instruction 1 ($) of Kernel-admiter
+ - Kernel-admiter: Process with pid 18 (program2.exe) was admitted to the READY queue
+ - Calling Kernel-pScheduler to find for a process to run
+ - Interrupts set to DISABLED
+ - Set active process 1 , counter =0, ba = 1
+
+========== TIME    153    : ===========
+ - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pScheduler
+
+========== TIME    154    : ===========
+ - Executed instruction 0 ($) of Kernel-pScheduler
+ - Interrupts set to ENABLED
+ - Kernel-pScheduler: Selected process with PID 18with priority5
+ - Set active process 18 , counter =0, ba = 292
+
+========== TIME    155    : ===========
+ - Fetched instruction 0 (*) from address 292 (292+0) of program2.exe
+
+========== TIME    156    : ===========
+ - Executed instruction 1 (*) of program2.exe
+
+========== TIME    157    : ===========
+ - Fetched instruction 1 (*) from address 293 (292+1) of program2.exe
+
+========== TIME    158    : ===========
+ - Executed instruction 2 (*) of program2.exe
+
+========== TIME    159    : ===========
+ - Fetched instruction 2 (*) from address 294 (292+2) of program2.exe
+
+========== TIME    160    : ===========
+ - Executed instruction 3 (*) of program2.exe
+
+========== TIME    161    : ===========
+ - Fetched instruction 3 (*) from address 295 (292+3) of program2.exe
+
+========== TIME    162    : ===========
+ - Executed instruction 4 (*) of program2.exe
+
+========== TIME    163    : ===========
+ - Simulator: A new request to run program program3.exe was registered
+ - Simulator: Interrupts are enabled. Request will be served
+ - Calling Kernel-mManager to find a free partition for the program  program3.exe
+ - Interrupts set to DISABLED
+ - Set active process 0 , counter =0, ba = 0
+ - Fetched instruction 0 ($) from address 0 (0+0) of Kernel-mManager
+
+========== TIME    164    : ===========
+ - Executed instruction 0 ($) of Kernel-mManager
+ - Kernel-mManager: Found a free partition with base address 315
+ - Calling Kernel-create to create a process for program3.exe
+ - Interrupts set to DISABLED
+ - Set active process 4 , counter =0, ba = 4
+
+========== TIME    165    : ===========
+ - Fetched instruction 0 (*) from address 4 (4+0) of Kernel-create
+
+========== TIME    166    : ===========
+ - Executed instruction 1 (*) of Kernel-create
+
+========== TIME    167    : ===========
+ - Fetched instruction 1 ($) from address 5 (4+1) of Kernel-create
+
+========== TIME    168    : ===========
+ - Executed instruction 1 ($) of Kernel-create
+ - Kernel-create: Created process with pid 19 for program3.exe
+ - Calling Kernel-admiter to admit the process 19 (program3.exe) to the ready queue
+ - Interrupts set to DISABLED
+ - Set active process 5 , counter =0, ba = 6
+
+========== TIME    169    : ===========
+ - Fetched instruction 0 (*) from address 6 (6+0) of Kernel-admiter
+
+========== TIME    170    : ===========
+ - Executed instruction 1 (*) of Kernel-admiter
+
+========== TIME    171    : ===========
+ - Fetched instruction 1 ($) from address 7 (6+1) of Kernel-admiter
+
+========== TIME    172    : ===========
+ - Executed instruction 1 ($) of Kernel-admiter
+ - Kernel-admiter: Process with pid 19 (program3.exe) was admitted to the READY queue
+ - Calling Kernel-pScheduler to find for a process to run
+ - Interrupts set to DISABLED
+ - Set active process 1 , counter =0, ba = 1
+
+========== TIME    173    : ===========
+ - Fetched instruction 0 ($) from address 1 (1+0) of Kernel-pSc

@@ -175,7 +175,7 @@ class Simulator {
         loadProgram(userRequests.get(0).filename);
         userRequests.remove(0);
       }
-      if(myOS.interruptsEnabled){
+      if(myOS.interruptsEnabled && myOS.roundRobin){
         myOS.processScheduler.call();
       }
       myPC.fetch();
@@ -197,7 +197,7 @@ class Simulator {
       if (instruction == '*' && myOS.active.pid>=myOS.kernelProcesses && myOS.active.startTime ==-1) {
         myOS.active.startTime = myPC.clock;
       }
-      if(myPC.counter - myOS.initialCounter >= 2 && !(myOS.active instanceof KernelProcess)){
+      if(myPC.counter - myOS.initialCounter >= 2 && !(myOS.active instanceof KernelProcess) && myOS.roundRobin){
         myOS.enableInterrupts();
 
       }

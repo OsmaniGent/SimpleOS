@@ -323,6 +323,7 @@ public class NextFit extends KernelProcess {
 public class RoundRobin extends KernelProcess {
   RoundRobin(SOS sos, String n, String c) {
     super(sos, n, c);
+    sos.roundRobin = true;
   }
 
   public void call() {
