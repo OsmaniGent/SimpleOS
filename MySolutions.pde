@@ -13,7 +13,15 @@ public class FirstComeFirstServed extends KernelProcess {
   public void complete() {
     os.enableInterrupts();
     if (!os.readyQueue.isEmpty()) {
-      PCB found = os.readyQueue.get(0);
+      int index = 0;
+      int old = os.readyQueue.get(0).loadTime;
+       for (int i = 1; i < os.readyQueue.size(); i++) {
+       if (os.readyQueue.get(i).loadTime < old ) {
+            old = os.readyQueue.get(i).loadTime;
+            index = i;
+        }
+    }
+      PCB found = os.readyQueue.get(index);
       os.readyQueue.remove(found);
       sim.addToLog(" - "+filename+": Selected process with PID "+found.pid);
       os.runProcess(found);
