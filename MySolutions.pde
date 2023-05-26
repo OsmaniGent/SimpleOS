@@ -1,28 +1,3 @@
-public class FirstComeFirstServed extends KernelProcess {
-  FirstComeFirstServed(SOS sos, String n, String c) {
-    super(sos, n, c);
-  }
-
-  public void call() {
-    sim.addToLog(" - Calling "+filename+" to find for a process to run");
-    os.disableInterrupts();
-    programCounter=0;
-    os.runProcess(this);
-  }
-
-  public void complete() {
-    os.enableInterrupts();
-    if (!os.readyQueue.isEmpty()) {
-      PCB found = os.readyQueue.get(0);
-      os.readyQueue.remove(found);
-      sim.addToLog(" - "+filename+": Selected process with PID "+found.pid);
-      os.runProcess(found);
-    } else {
-      sim.addToLog(" - "+filename+": Did not find a user process. Running idle");
-      os.idle.call();
-    }
-  }
-}
 ////////////////////////////////////////////////////////////////////////////
 public class PriorityQueue extends KernelProcess {
   PriorityQueue(SOS sos, String n, String c) {
@@ -345,6 +320,58 @@ public class RoundRobin extends KernelProcess {
       os.idle.call();
     }
   }
+}
+
+public class CoalesceProcessDeleter extends KernelProcess{
+  
+  CoalesceProcessDeleter(SOS os, String name, String code){
+    super(os, name, code);  
+  }
+  
+  public void call() {
+        sim.addToLog(" - Calling "+filename+" to delete process "+os.markedForDeletion.pid+" ("+os.markedForDeletion.filename+")");
+        os.disableInterrupts();
+        programCounter=0;
+        os.active = this;
+        os.active.state = RUNNING;
+        myPC.counter =programCounter;
+        myPC.baseAddress = baseAddress;
+      }
+
+      public void complete() {
+        int ba = os.markedForDeletion.baseAddress;
+        for (int i=1; i<os.partitionTable.size(); i++) {
+          if (ba == os.partitionTable.get(i).baseAddress) {
+            os.erasePartition(os.partitionTable.get(i));
+            os.partitionTable.get(i).isFree = true;
+            
+            if( i != os.partitionTable.size()){
+              if(os.partitionTable.get(i+1).isFree){
+                os.partitionTable.get(i).size +=os.partitionTable.get(i+1).size;
+                os.partitionTable.remove(os.partitionTable.get(i+1));
+              }
+            }
+            if(i != 1){
+              if(os.partitionTable.get(i-1).isFree){
+                os.partitionTable.get(i-1).size +=os.partitionTable.get(i).size;
+                os.partitionTable.remove(os.partitionTable.get(i));
+              }
+            }
+            
+            
+            os.processTable.remove(os.markedForDeletion);
+            break;
+          }
+        }
+        sim.addToLog(" - "+filename+": Process with pid "+os.markedForDeletion.pid+" ("+os.markedForDeletion.filename+") was deleted");
+        
+        System.out.println("Current partitionTable status:");
+        for (Partition partition : os.partitionTable) {
+          System.out.println("Base Address: " + partition.baseAddress + ", Size: " + partition.size + ", Is Free: " + partition.isFree);
+        }
+        
+        os.processScheduler.call();
+      }
 }
 
  

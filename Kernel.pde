@@ -130,32 +130,11 @@ public class ProcessDeleter extends KernelProcess{
           if (ba == os.partitionTable.get(i).baseAddress) {
             os.erasePartition(os.partitionTable.get(i));
             os.partitionTable.get(i).isFree = true;
-            
-            if( i != os.partitionTable.size()){
-              if(os.partitionTable.get(i+1).isFree){
-                os.partitionTable.get(i).size +=os.partitionTable.get(i+1).size;
-                os.partitionTable.remove(os.partitionTable.get(i+1));
-              }
-            }
-            if(i != 1){
-              if(os.partitionTable.get(i-1).isFree){
-                os.partitionTable.get(i-1).size +=os.partitionTable.get(i).size;
-                os.partitionTable.remove(os.partitionTable.get(i));
-              }
-            }
-            
-            
             os.processTable.remove(os.markedForDeletion);
             break;
           }
         }
         sim.addToLog(" - "+filename+": Process with pid "+os.markedForDeletion.pid+" ("+os.markedForDeletion.filename+") was deleted");
-        
-        System.out.println("Current partitionTable status:");
-        for (Partition partition : os.partitionTable) {
-          System.out.println("Base Address: " + partition.baseAddress + ", Size: " + partition.size + ", Is Free: " + partition.isFree);
-        }
-        
         os.processScheduler.call();
       }
 }

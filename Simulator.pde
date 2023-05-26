@@ -95,19 +95,47 @@ class Simulator {
 
   private void setupRequests() {
     //FEEL FREE TO EXPERIMENT WITH THIS LIST
-    userRequests.add(new Request(3, "program1.exe"));
-    userRequests.add(new Request(8, "program2.exe"));
-    userRequests.add(new Request(11, "program3.exe"));
-    userRequests.add(new Request(25, "program1.exe"));
+    userRequests.add(new Request(3, "program3.exe"));
+    userRequests.add(new Request(5, "program2.exe"));
+    userRequests.add(new Request(32, "program3.exe"));
+    userRequests.add(new Request(40, "program2.exe"));
+    userRequests.add(new Request(50, "program1.exe"));
+    userRequests.add(new Request(60, "program2.exe"));
+    userRequests.add(new Request(70, "program1.exe"));
+    userRequests.add(new Request(80, "program2.exe"));
+    userRequests.add(new Request(80, "program2.exe"));
+    userRequests.add(new Request(80, "program2.exe"));
+    userRequests.add(new Request(90, "program2.exe"));
+    userRequests.add(new Request(100, "program2.exe"));
+    userRequests.add(new Request(61, "program3.exe"));
+    userRequests.add(new Request(55, "program3.exe"));
+    userRequests.add(new Request(59, "program1.exe"));
+    userRequests.add(new Request(60, "program2.exe"));
     userRequests.add(new Request(42, "program3.exe"));
-    userRequests.add(new Request(45, "program3.exe"));
-    userRequests.add(new Request(58, "program1.exe"));
-    userRequests.add(new Request(72, "program1.exe"));
-    userRequests.add(new Request(90, "program3.exe"));
-    userRequests.add(new Request(110, "program2.exe"));
-    userRequests.add(new Request(131, "program3.exe"));
-    userRequests.add(new Request(141, "program2.exe"));
-    userRequests.add(new Request(162, "program3.exe"));
+    userRequests.add(new Request(100, "program2.exe"));
+    userRequests.add(new Request(61, "program3.exe"));
+    userRequests.add(new Request(55, "program3.exe"));
+    userRequests.add(new Request(200, "program2.exe"));
+    userRequests.add(new Request(150, "program3.exe"));
+    userRequests.add(new Request(300, "program2.exe"));
+    userRequests.add(new Request(600, "program1.exe"));
+    userRequests.add(new Request(620, "program1.exe"));
+    userRequests.add(new Request(700, "program2.exe"));
+    userRequests.add(new Request(650, "program1.exe"));
+    userRequests.add(new Request(800, "program3.exe"));
+    userRequests.add(new Request(850, "program2.exe"));
+    userRequests.add(new Request(870, "program1.exe"));
+    userRequests.add(new Request(900, "program3.exe"));
+    userRequests.add(new Request(919, "program2.exe"));
+    userRequests.add(new Request(940, "program1.exe"));
+    userRequests.add(new Request(1000, "program1.exe"));
+    userRequests.add(new Request(1050, "program2.exe"));
+    userRequests.add(new Request(1110, "program1.exe"));
+    userRequests.add(new Request(1111, "program3.exe"));
+    userRequests.add(new Request(1144, "program2.exe"));
+    userRequests.add(new Request(1188, "program1.exe"));
+    userRequests.add(new Request(1200, "program3.exe"));
+    userRequests.add(new Request(1250, "program2.exe"));
   }
 
   private void configureUI() {
