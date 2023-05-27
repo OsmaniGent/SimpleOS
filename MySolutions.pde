@@ -1,3 +1,34 @@
+public class FirstComeFirstServe extends KernelProcess {
+  FirstComeFirstServe(SOS sos, String n, String c) {
+    super(sos, n, c);
+  }
+
+  public void call() {
+    sim.addToLog(" - Calling "+filename+" to find for a process to run");
+    os.disableInterrupts();
+    programCounter=0;
+    os.runProcess(this);
+  }
+
+  public void complete() {
+    os.enableInterrupts();
+    if (!os.readyQueue.isEmpty()) {
+      PCB oldest = os.readyQueue.get(0);
+      for (int i = 1; i < os.readyQueue.size(); i++) {
+        if (oldest.loadTime > os.readyQueue.get(i).loadTime) {
+          oldest = os.readyQueue.get(i);
+        }
+      }
+      os.readyQueue.remove(oldest);
+      sim.addToLog(" - "+filename+": Selected process with PID "+oldest.pid);
+      os.runProcess(oldest);
+    } else {
+      sim.addToLog(" - "+filename+": Did not find a user process. Running idle");
+      os.idle.call();
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////
 public class PriorityQueue extends KernelProcess {
   PriorityQueue(SOS sos, String n, String c) {
