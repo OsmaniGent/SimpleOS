@@ -1,5 +1,5 @@
-public class FirstComeFirstServe extends KernelProcess {
-  FirstComeFirstServe(SOS sos, String n, String c) {
+public class FirstComeFirstServed extends KernelProcess {
+  FirstComeFirstServed(SOS sos, String n, String c) {
     super(sos, n, c);
   }
 
@@ -13,15 +13,18 @@ public class FirstComeFirstServe extends KernelProcess {
   public void complete() {
     os.enableInterrupts();
     if (!os.readyQueue.isEmpty()) {
-      PCB oldest = os.readyQueue.get(0);
-      for (int i = 1; i < os.readyQueue.size(); i++) {
-        if (oldest.loadTime > os.readyQueue.get(i).loadTime) {
-          oldest = os.readyQueue.get(i);
+      int index = 0;
+      int old = os.readyQueue.get(0).loadTime;
+       for (int i = 1; i < os.readyQueue.size(); i++) {
+       if (os.readyQueue.get(i).loadTime < old ) {
+            old = os.readyQueue.get(i).loadTime;
+            index = i;
         }
-      }
-      os.readyQueue.remove(oldest);
-      sim.addToLog(" - "+filename+": Selected process with PID "+oldest.pid);
-      os.runProcess(oldest);
+    }
+      PCB found = os.readyQueue.get(index);
+      os.readyQueue.remove(found);
+      sim.addToLog(" - "+filename+": Selected process with PID "+found.pid);
+      os.runProcess(found);
     } else {
       sim.addToLog(" - "+filename+": Did not find a user process. Running idle");
       os.idle.call();
@@ -226,31 +229,34 @@ public class BestFit extends KernelProcess {
 
   public void complete() {
     os.baseAddressFound = -1;
-    int partitionLengthFound = 0;
+    int foundPartitionIndex = -1;
+    int foundPartitionLength = 0;
     int processSize = myPC.HDD.get(os.request).length()+os.processTail.length();
-    int partitionIndexFound = -1;
-    for (int i=1; i<os.partitionTable.size(); i++) {
+    for (int i = 1; i < os.partitionTable.size(); i++) {
       Partition current = os.partitionTable.get(i);
-      if (current.isFree && current.size >= processSize && (current.size < partitionLengthFound || partitionLengthFound == 0)) {
+      if (current.isFree && current.size >= processSize && (current.size < foundPartitionLength || foundPartitionLength == 0)) {
         os.baseAddressFound = current.baseAddress;
-        partitionLengthFound = current.size;
-        partitionIndexFound = i;
+        foundPartitionLength = current.size;
+        foundPartitionIndex = i;
       }
     }
-    if (os.baseAddressFound==-1) {
-      sim.addToLog(" - "+filename+": Did not find a free partition. Request is ignored");
+    
+    if (os.baseAddressFound == -1) {
+      sim.addToLog(" - "+filename+": No free partition found. Request has been ignored");
       sim.requestFails++;
       os.processScheduler.call();
     } else {
-      Partition partitionFound = os.partitionTable.get(partitionIndexFound);
-      partitionFound.isFree = false;
-      if (partitionFound.size > processSize) {
-        int newPartitionSize = partitionFound.size - processSize;
-        int newPartitionBaseAddress = partitionFound.baseAddress + processSize;
-        partitionFound.size = processSize;
-        os.partitionTable.add(partitionIndexFound+1, new Partition(newPartitionSize, newPartitionBaseAddress));
+      Partition foundPartition = os.partitionTable.get(foundPartitionIndex);
+      foundPartition.isFree = false;
+    
+      if (foundPartition.size > processSize) {
+        int newPartitionSize = foundPartition.size - processSize;
+        int newPartitionBaseAddress = foundPartition.baseAddress + processSize;
+        foundPartition.size = processSize;
+        os.partitionTable.add(foundPartitionIndex + 1, new Partition(newPartitionSize, newPartitionBaseAddress));
       }
-      sim.addToLog(" - "+filename+": Found a free partition with base address "+os.baseAddressFound);
+    
+      sim.addToLog(" - "+filename+": A free partition has been found with the base address "+os.baseAddressFound);
       os.processCreator.call();
     }
   }
@@ -275,14 +281,14 @@ public class NextFit extends KernelProcess {
   public void complete() {
     os.baseAddressFound = -1;
     int processSize = myPC.HDD.get(os.request).length()+os.processTail.length();
-    int startIndex;
-    for (startIndex = 1; startIndex<os.partitionTable.size(); startIndex++) {
-      if (startIndex == os.partitionTable.size() - 1)
-        break;
-      else if (os.partitionTable.get(startIndex).baseAddress <= previousBaseAddress && os.partitionTable.get(startIndex + 1).baseAddress > previousBaseAddress)
-        break;
-    }
-    for (int i=startIndex; i<os.partitionTable.size(); i++) {
+    int searchIndex;
+    for (searchIndex = 1; searchIndex < os.partitionTable.size(); searchIndex++) {
+        if (searchIndex == os.partitionTable.size() - 1)
+          break;
+        else if (os.partitionTable.get(searchIndex).baseAddress <= previousBaseAddress && os.partitionTable.get(searchIndex + 1).baseAddress > previousBaseAddress)
+          break;
+        }
+    for (int i = searchIndex; i < os.partitionTable.size(); i++) {
       Partition current = os.partitionTable.get(i);
       if (current.isFree && current.size >= processSize) {
         os.baseAddressFound = current.baseAddress;
@@ -292,13 +298,13 @@ public class NextFit extends KernelProcess {
           int newPartitionSize = current.size - processSize;
           int newPartitionBaseAddress = current.baseAddress + processSize;
           current.size = processSize;
-          os.partitionTable.add(i+1, new Partition(newPartitionSize, newPartitionBaseAddress));
+          os.partitionTable.add(i + 1, new Partition(newPartitionSize, newPartitionBaseAddress));
         }
         break;
       }
     }
-    if (os.baseAddressFound==-1) {
-      for (int i=0; i<startIndex; i++) {
+    if (os.baseAddressFound == -1) {
+      for (int i = 0; i < searchIndex; i++) {
         Partition current = os.partitionTable.get(i);
         if (current.isFree && current.size >= processSize) {
           os.baseAddressFound = current.baseAddress;
@@ -308,47 +314,19 @@ public class NextFit extends KernelProcess {
             int newPartitionSize = current.size - processSize;
             int newPartitionBaseAddress = current.baseAddress + processSize;
             current.size = processSize;
-            os.partitionTable.add(i+1, new Partition(newPartitionSize, newPartitionBaseAddress));
+            os.partitionTable.add(i + 1, new Partition(newPartitionSize, newPartitionBaseAddress));
           }
-          break;
+        break;
         }
       }
     }
-    if (os.baseAddressFound==-1) {
-      sim.addToLog(" - "+filename+": Did not find a free partition. Request is ignored");
+    if (os.baseAddressFound == -1) {
+      sim.addToLog(" - "+filename+": No free partition found. Request has been ignored");
       sim.requestFails++;
       os.processScheduler.call();
     } else {
-      sim.addToLog(" - "+filename+": Found a free partition with base address "+os.baseAddressFound);
+      sim.addToLog(" - "+filename+": A free partition has been found with the base address "+os.baseAddressFound);
       os.processCreator.call();
-    }
-  }
-}
-
-//////////////////////////////////////////////////////////////////////////////////////
-public class RoundRobin extends KernelProcess {
-  RoundRobin(SOS sos, String n, String c) {
-    super(sos, n, c);
-    sos.roundRobin = true;
-  }
-
-  public void call() {
-    sim.addToLog(" - Calling "+filename+" to find for a process to run");
-    os.disableInterrupts();
-    programCounter=0;
-    os.runProcess(this);
-  }
-
-  public void complete() {
-     //os.disableInterrupts();
-    if(!os.readyQueue.isEmpty()){
-      PCB toRun = os.readyQueue.get(0);
-      os.readyQueue.remove(toRun);
-      os.runProcess(toRun);
-    }
-    else {
-      sim.addToLog(" - "+filename+": Did not find a user process. Running idle");
-      os.idle.call();
     }
   }
 }
